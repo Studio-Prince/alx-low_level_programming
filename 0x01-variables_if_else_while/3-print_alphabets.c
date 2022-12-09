@@ -7,15 +7,15 @@
  */
 int main(void)
 {
-	char moses;
-
+	char moses = 'a';
+	char moses1 = 'A';
 
 	for (moses = 'a'; moses < 'z'; moses++)
 		putchar(moses);
 
 
-	for (moses = 'A'; moses < 'Z'; moses++)
-		putchar(moses);
+	for (moses1 = 'A'; moses1 < 'Z'; moses1++)
+		putchar(moses1);
 	putchar('\n');
 	return (0);
 }
