@@ -5,23 +5,37 @@
  * @n: The number to begin counting at.
  */
 void print_to_98(int n)
+
 {
 
+	if (n > 98)
 
-	int i;
+	{
 
-	if (n <= 98)
-	{
-		for (i = n; i < 98; i++)
+		for (; n > 98; n--)
+
 		{
-			printf("%i, ", i);
+
+			printf("%d, ", n);
+
 		}
-	} else
-	{
-		for (i = n; i > 98; i--)
-		{
-			printf("%i, ", i);
-		}
+
 	}
-	printf("98\n");
+
+	else if (n < 98)
+
+	{
+
+		for (; n < 98; n++)
+
+		{
+
+			printf("%d, ", n);
+
+		}
+
+	}
+
+	printf("%d\n", n);
+
 }
