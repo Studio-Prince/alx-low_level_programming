@@ -12,11 +12,17 @@ int main(void)
 
 	time_t t;
 
-	srand(time(0));
 
-	int num = rand();
 
-	printf("%i\n", num);
+	srand((unsigned int) time(&t));
 
+	while (c < 2772)
+	{
+		r = rand() % 128;
+		c = c + r;
+
+		printf("%c", r);
+	}
+	printf("%c\n", (2772 - c));
 	return (0);
 }
