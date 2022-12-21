@@ -9,8 +9,6 @@ int _strlen(char *s)
 
 	char *p = s;
 
-
-
 	while (*s)
 
 		s++;
@@ -35,7 +33,6 @@ void rev_string(char *s)
 
 	while (i < size)
 	{
-
 		temp = *(s + i);
 
 		*(s + i) = *(s + size - 1);
@@ -47,7 +44,6 @@ void rev_string(char *s)
 		size--;
 	}
 }
-
 /**
  * returnRes - changes pretotal to digit to be added
  * @sum: pre-total
@@ -75,7 +71,6 @@ int returnRes(int sum, int plusOne)
 
 	return (res);
 }
-
 /**
  * returnPlusOne - determines bool of plusOne
  * @sum: pre-total
@@ -99,7 +94,6 @@ int returnPlusOne(int sum, int plusOne)
 
 	return (plusOne);
 }
-
 /**
  * infinite_add - function that adds two numbers
  * @n1: first number
