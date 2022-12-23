@@ -1,131 +1,133 @@
 #include "main.h"
+
+char *add_strings(char *n1, char *n2, char *r, int r_index);
+
+char *infinite_add(char *n1, char *n2, char *r, int size_r);
 /**
- * _strlen - returns the length of a string
- * @s: string s
- * Return: length of string
+ * add_strings - Adds the numbers stored in two strings.
+ * @n1: The string containing the first number to be added.
+ * @n2: The string containing the second number to be added.
+ * @r: The buffer to store the result.
+ * @r_index: The current index of the buffer.
+ *
+ * Return: If r can store the sum - a pointer to the result.
+ *         If r cannot store the sum - 0.
  */
-int _strlen(char *s)
-{
-	char *p = s;
-
-	while (*s)
-
-		s++;
-
-	return (s - p);
-}
-/**
- * rev_string - reverses a string
- * @s: string s
- */
-void rev_string(char *s)
+char *add_strings(char *n1, char *n2, char *r, int r_index)
 {
 
-	int i = 0;
-	int size = _strlen(s);
-	char temp;
+	int num, tens = 0;
 
-	while (i < size)
+
+
+	for (; *n1 && *n2; n1--, n2--, r_index--)
+
 	{
 
-		temp = *(s + i);
+		num = (*n1 - '0') + (*n2 - '0');
 
-		*(s + i) = *(s + size - 1);
+		num += tens;
 
-		*(s + size - 1) = temp;
+		*(r + r_index) = (num % 10) + '0';
 
-		i++;
+		tens = num / 10;
 
-		size--;
 	}
+
+
+
+	for (; *n1; n1--, r_index--)
+
+	{
+
+		num = (*n1 - '0') + tens;
+
+		*(r + r_index) = (num % 10) + '0';
+
+		tens = num / 10;
+
+	}
+
+
+
+	for (; *n2; n2--, r_index--)
+
+	{
+
+		num = (*n2 - '0') + tens;
+
+		*(r + r_index) = (num % 10) + '0';
+
+		tens = num / 10;
+
+	}
+
+
+
+	if (tens && r_index >= 0)
+
+	{
+
+		*(r + r_index) = (tens % 10) + '0';
+
+		return (r + r_index);
+
+	}
+
+
+
+	else if (tens && r_index < 0)
+
+		return (0);
+
+
+
+	return (r + r_index + 1);
+
 }
 /**
- * returnRes - changes pretotal to digit to be added
- * @sum: pre-total
- * @plusOne: flag to add one to res
- * Return: returns digit to be placed into array
- */
-
-int returnRes(int sum, int plusOne)
-{
-
-	int res;
-
-	if (sum == 9 && plusOne)
-
-		res = 0;
-
-	else if ((sum >= 10 && plusOne) || (sum < 9 && plusOne))
-
-		res = (sum % 10) + 1;
-
-	else
-
-		res = sum % 10;
-
-	return (res);
-}
-/**
- * returnPlusOne - determines bool of plusOne
- * @sum: pre-total
- * @plusOne: flag to add one to res
- * Return: 1 if true, 0 if false
- */
-int returnPlusOne(int sum, int plusOne)
-{
-
-	if (sum > 9)
-
-		plusOne = 1;
-
-	else if (sum == 9 && plusOne)
-
-		plusOne = 1;
-
-	else
-
-		plusOne = 0;
-
-	return (plusOne);
-}
-/**
- * infinite_add - function that adds two numbers
- * @n1: first number
- * @n2: second number
- * @r: buffer that the function will use to store the result
- * @size_r: size of buffer
- * Return: pointer to result
+ * infinite_add - Adds two numbers.
+ * @n1: The first number to be added.
+ * @n2: The second number to be added.
+ * @r: The buffer to store the result.
+ * @size_r: The buffer size.
+ *
+ * Return: If r can store the sum - a pointer to the result.
+ *         If r cannot store the sum - 0.
  */
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-	int sum, res, first, second, i = 0, plusOne = 0;
-	int len1 = _strlen(n1), len2 = _strlen(n2);
-	char *ptr = r;
 
-	while (len1 > 0 || len2 > 0)
-	{
-		first = len1 > 0 ? (*(n1 + len1 - 1) - '0') : 0;
-		second = len2 > 0 ? (*(n2 + len2 - 1) - '0') : 0;
+	int index, n1_len = 0, n2_len = 0;
 
-		sum = first + second;
 
-		res = returnRes(sum, plusOne);
 
-		plusOne = returnPlusOne(sum, plusOne);
+	for (index = 0; *(n1 + index); index++)
 
-		*(ptr + i) = res + '0';
+		n1_len++;
 
-		len1--;
 
-		len2--;
 
-		i++;
-	}
+	for (index = 0; *(n2 + index); index++)
 
-	if (plusOne)
+		n2_len++;
 
-		*(ptr + i) = 1 + '0';
-	ptr[++i] = '\0';
-	rev_string(ptr);
-	return ((size_r > _strlen(ptr)) ? ptr : 0);
+
+
+	if (size_r <= n1_len + 1 || size_r <= n2_len + 1)
+
+		return (0);
+
+
+
+	n1 += n1_len - 1;
+
+	n2 += n2_len - 1;
+
+	*(r + size_r) = '\0';
+
+
+
+	return (add_strings(n1, n2, r, --size_r));
+
 }
