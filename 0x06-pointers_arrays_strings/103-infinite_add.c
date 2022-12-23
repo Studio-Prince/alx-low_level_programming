@@ -1,9 +1,5 @@
 #include "main.h"
-<<<<<<< HEAD
-#include <<stdio.h>
-=======
 #include <stdio.h>
->>>>>>> 4decb4b9c8b9f4c4f02cc1360e6ee918a0638788
 
 /**
  * rev_string - reverse array
