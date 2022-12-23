@@ -1,91 +1,54 @@
 #include "main.h"
+#include <stdio.h>
 /**
- * infinite_add - adds two numbers
- * @n1: number one.
- * @n2: number two.
- * @r: buffer that the function will use to store the result.
- * @size_r: buffer size:
- * Return: the pointer to dest.
+ * infinite_add - function that adds two numbers
+ * @n1: first number
+ * @n2: second number
+ * @r: buffer that the function will use to store the result
+ * @size_r: size of buffer
+ * Return: pointer to result
  */
-
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
+
 {
 
-	int c1 = 0, c2 = 0, op, bg, dr1, dr2, add = 0;
+	int sum, res, first, second, i = 0, plusOne = 0;
+
+	int len1 = _strlen(n1), len2 = _strlen(n2);
+
+	char *ptr = r;
 
 
 
-	while (*(n1 + c1) != '\0')
+	while (len1 > 0 || len2 > 0)
 
-		c1++;
-
-	while (*(n2 + c2) != '\0')
-
-		c2++;
-
-	if (c1 >= c2)
-
-		bg = c1;
-
-	else
-
-		bg = c2;
-
-	if (size_r <= bg + 1)
-
-		return (0);
-
-	r[bg + 1] = '\0';
-
-	c1--, c2--, size_r--;
-
-	dr1 = *(n1 + c1) - 48, dr2 = *(n2 + c2) - 48;
-
-	while (bg >= 0)
 	{
 
-		op = dr1 + dr2 + add;
+		first = len1 > 0 ? (*(n1 + len1 - 1) - '0') : 0;
 
-		if (op >= 10)
+		second = len2 > 0 ? (*(n2 + len2 - 1) - '0') : 0;
 
-			add = op / 10;
+		sum = first + second;
 
-		else
+		res = returnRes(sum, plusOne);
 
-			add = 0;
+		plusOne = returnPlusOne(sum, plusOne);
 
-		if (op > 0)
+		*(ptr + i) = res + '0';
 
-		*(r + bg) = (op % 10) + 48;
+		len1--;
 
-		else
+		len2--;
 
-			*(r + bg) = '0';
+		i++;
 
-		if (c1 > 0)
-
-			c1--, dr1 = *(n1 + c1) - 48;
-
-		else
-
-			dr1 = 0;
-
-		if (c2 > 0)
-
-			c2--, dr2 = *(n2 + c2) - 48;
-
-		else
-
-			dr2 = 0;
-
-		bg--, size_r--;
 	}
 
-	if (*(r) == '0')
+	if (plusOne)
 
-		return (r + 1);
+		*(ptr + i) = 1 + '0';
 
-	else
-
-		return (r);
+	ptr[++i] = '\0';
+	rev_string(ptr);
+	return ((size_r > _strlen(ptr)) ? ptr : 0);
 }
